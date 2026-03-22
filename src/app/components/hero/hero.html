@@ -1,0 +1,73 @@
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+        <h1 class="hero-title">
+            Simplify Your <span class="highlight">RTO Services</span> <br /> & Appointments
+        </h1>
+        <p class="hero-subtitle">
+            Book slots for licenses, register vehicles, and pay taxes seamlessly from home.
+        </p>
+
+        <div class="search-box">
+            <div class="input-group">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="License, Vehicle Registration..." />
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-location-dot"></i>
+                <select>
+                    <option>Select RTO Location</option>
+                    <option>Ahmedabad (GJ-01)</option>
+                    <option>Surat (GJ-05)</option>
+                    <option>Vadodara (GJ-06)</option>
+                    <option>Rajkot (GJ-03)</option>
+                </select>
+            </div>
+            <button class="btn btn-primary search-btn" routerLink="/services">Find Services <i
+                    class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+        <!-- Enhanced Stats Strip (Bottom of Hero) -->
+        <div class="hero-stats-strip">
+            <div class="stat-card-item">
+                <div class="icon-circle" style="background: rgba(79, 172, 254, 0.1)">
+                    <i class="fa-solid fa-users" style="color: #4facfe"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{stats.users}}</h3>
+                    <p>Happy Users</p>
+                </div>
+            </div>
+
+            <div class="stat-card-item">
+                <div class="icon-circle" style="background: rgba(0, 242, 254, 0.1)">
+                    <i class="fa-solid fa-id-card" style="color: #00f2fe"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{stats.licenses}}</h3>
+                    <p>Licenses Issued</p>
+                </div>
+            </div>
+
+            <div class="stat-card-item">
+                <div class="icon-circle" style="background: rgba(67, 233, 123, 0.1)">
+                    <i class="fa-solid fa-building" style="color: #43e97b"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{stats.rtoOffices}}</h3>
+                    <p>RTO Offices</p>
+                </div>
+            </div>
+
+            <div class="stat-card-item">
+                <div class="icon-circle" style="background: rgba(250, 112, 154, 0.1)">
+                    <i class="fa-solid fa-award" style="color: #fa709a"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{stats.years}}</h3>
+                    <p>Years Served</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

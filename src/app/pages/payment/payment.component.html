@@ -1,0 +1,94 @@
+<div class="page-wrapper">
+    <div class="bg-decor">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="mesh"></div>
+    </div>
+
+    <div class="hero-banner">
+        <div class="container">
+            <span class="badge-pill">Secure Payment</span>
+            <h1>Complete Your <span>Payment</span></h1>
+            <p>Application ID: {{applicationId}}</p>
+        </div>
+    </div>
+
+    <section class="glass-section">
+        <div class="container">
+            <div class="glass-card-main narrow">
+                <div class="amount-display">
+                    <span class="label">Total Amount</span>
+                    <span class="value">₹{{amount}}</span>
+                </div>
+
+                <div class="payment-methods">
+                    <label [class.active]="paymentMethod === 'card'">
+                        <input type="radio" name="paymethod" [(ngModel)]="paymentMethod" value="card">
+                        <span class="icon">💳</span> Card
+                    </label>
+                    <label [class.active]="paymentMethod === 'qr'">
+                        <input type="radio" name="paymethod" [(ngModel)]="paymentMethod" value="qr">
+                        <span class="icon">📱</span> UPI / QR
+                    </label>
+                    <label [class.active]="paymentMethod === 'cash'">
+                        <input type="radio" name="paymethod" [(ngModel)]="paymentMethod" value="cash">
+                        <span class="icon">💵</span> Cash
+                    </label>
+                </div>
+
+                <div class="method-content">
+                    <!-- Card Form -->
+                    <div *ngIf="paymentMethod === 'card'" class="card-form animate-fade">
+                        <div class="form-group">
+                            <label>Card Number</label>
+                            <input type="text" [(ngModel)]="cardDetails.number" placeholder="0000 0000 0000 0000"
+                                maxlength="19" autocomplete="new-password">
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Valid Thru</label>
+                                <input type="text" [(ngModel)]="cardDetails.expiry" placeholder="MM/YY" maxlength="5"
+                                    autocomplete="new-password">
+                            </div>
+                            <div class="form-group">
+                                <label>CVV</label>
+                                <input type="password" [(ngModel)]="cardDetails.cvv" placeholder="123" maxlength="3"
+                                    autocomplete="new-password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Card Holder Name</label>
+                            <input type="text" [(ngModel)]="cardDetails.holder" placeholder="Name on Card"
+                                autocomplete="new-password">
+                        </div>
+                    </div>
+
+                    <!-- QR Code -->
+                    <div *ngIf="paymentMethod === 'qr'" class="qr-code animate-fade">
+                        <p>Scan to Pay</p>
+                        <img [src]="'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=rto@upi&pn=RTO_System&am=' + amount + '&cu=INR'"
+                            alt="QR Code">
+                    </div>
+
+                    <!-- Cash -->
+                    <div *ngIf="paymentMethod === 'cash'" class="cash-info animate-fade">
+                        <div class="alert-box">
+                            <p>Please visit the RTO counter with this Token ID to pay in cash.</p>
+                            <strong>TOKEN: CS-{{applicationId | slice:-4}}-{{amount}}</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="theme-btn" style="width: 100%; margin-top: 20px;" (click)="processPayment()"
+                    [disabled]="isSubmitting || paymentDone">
+                    {{ isSubmitting ? 'Processing...' : 'Pay ₹' + amount }}
+                </button>
+
+                <div *ngIf="paymentDone" class="success-msg">
+                    Payment Successful! Redirecting...
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

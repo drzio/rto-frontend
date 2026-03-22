@@ -1,0 +1,97 @@
+<div class="game-wrapper">
+    <div class="main-box">
+        <div class="game-area">
+            <canvas #gameCanvas width="800" height="500"></canvas>
+
+            <div class="controls-wrapper" *ngIf="gameState === 'PLAY'">
+                <div class="btn-group">
+                    <div class="btn-circle" (mousedown)="startKey('ArrowLeft')" (mouseup)="stopKey('ArrowLeft')"
+                        (touchstart)="startKey('ArrowLeft')" (touchend)="stopKey('ArrowLeft')">❮</div>
+                    <div class="btn-circle" (mousedown)="startKey('ArrowRight')" (mouseup)="stopKey('ArrowRight')"
+                        (touchstart)="startKey('ArrowRight')" (touchend)="stopKey('ArrowRight')">❯</div>
+                </div>
+                <div class="btn-group">
+                    <div class="btn-rect btn-red" (mousedown)="startKey('ArrowDown')" (mouseup)="stopKey('ArrowDown')"
+                        (touchstart)="startKey('ArrowDown')" (touchend)="stopKey('ArrowDown')">BRAKE</div>
+                    <div class="btn-rect btn-green" (mousedown)="startKey('ArrowUp')" (mouseup)="stopKey('ArrowUp')"
+                        (touchstart)="startKey('ArrowUp')" (touchend)="stopKey('ArrowUp')">GAS</div>
+                </div>
+            </div>
+
+            <div id="overlay" *ngIf="gameState !== 'PLAY'">
+                <!-- START SCREEN -->
+                <ng-container *ngIf="gameState === 'START'">
+                    <h1 style="color: #333; margin-bottom: 5px;">RIO DRIVING TEST</h1>
+                    <p style="color: #666; margin-bottom: 30px;">Simulation ID: #GJ-05-TEST</p>
+                    <button class="start-btn" (click)="startGame()">START TEST</button>
+                </ng-container>
+
+                <!-- GAME OVER SCREENS -->
+                <ng-container *ngIf="gameState === 'GAMEOVER' || gameState === 'WIN'">
+                    <!-- Loading State -->
+                    <ng-container *ngIf="isSavingResult">
+                        <h1 style="color: #1976d2;">SAVING RESULT...</h1>
+                        <p>Please wait while we update your license status.</p>
+                    </ng-container>
+
+                    <!-- Result Screen (Only show when NOT loading) -->
+                    <ng-container *ngIf="!isSavingResult">
+                        <h1 [style.color]="gameState === 'WIN' ? '#43a047' : '#d32f2f'">
+                            {{ gameState === 'WIN' ? 'PASSED!' : 'FAILED' }}
+                        </h1>
+                        <p>{{ gameOverMessage }}</p>
+
+                        <!-- Retry if Failed -->
+                        <button class="start-btn" *ngIf="gameState === 'GAMEOVER'" (click)="startGame()">TRY
+                            AGAIN</button>
+
+                        <!-- Download if Passed & Saved -->
+                        <div *ngIf="gameState === 'WIN' && resultSaved" style="text-align: center;">
+                            <p style="color: #43a047; font-weight: bold; margin-bottom: 20px;">
+                                <i class="fas fa-check-circle"></i> License Generated Successfully!
+                            </p>
+                            <button class="start-btn" (click)="goBack()">
+                                GET DRIVING LICENSE
+                            </button>
+                        </div>
+
+                        <!-- Offline Appointment Option (For both Pass and Fail) -->
+                        <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;">
+                            <p class="small text-muted mb-2">Want to re-take or book an offline test?</p>
+                            <button class="start-btn" style="background-color: #ff9800;" (click)="goToAppointment()">
+                                BOOK OFFLINE APPOINTMENT
+                            </button>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="header">
+                <h2>RIO SYSTEM</h2>
+                <p>Official Driving Simulation</p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-label">TIME REMAINING</div>
+                    <div class="stat-value" style="color: #d32f2f;">{{ formatTime(timer) }}</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">SPEED (KM/H)</div>
+                    <div class="stat-value" style="color: #1976d2;">{{ speedDisplay }}</div>
+                </div>
+            </div>
+
+            <div class="cp-header">CHECKPOINT STATUS</div>
+            <ul class="checkpoint-list">
+                <li *ngFor="let cp of checkpoints; let i = index" class="cp-item" [class.done]="cp.reached"
+                    [class.active]="!cp.reached && i === currentTargetIndex">
+                    <span>{{i+1}}. {{cp.label}}</span>
+                    <span *ngIf="!cp.reached && i === currentTargetIndex" class="arrow">➤</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

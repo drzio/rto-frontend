@@ -1,0 +1,64 @@
+<div class="exam-page">
+    <div class="exam-container">
+
+        <!-- Question Area -->
+        <div class="question-panel">
+            <div class="question-header">
+                <div>
+                    <span class="q-number">Question {{currentQuestionIndex + 1}} / {{questions.length}}</span>
+                    <span class="q-category">Government RTO Test</span>
+                </div>
+
+                <!-- Live Score Board -->
+                <div class="score-board">
+                    <span class="score-item correct-count">Correct: {{score}}</span>
+                    <span class="score-item wrong-count">Wrong: {{wrongAnswers}}</span>
+                </div>
+
+                <!-- Integrated Timer -->
+                <div class="inline-timer" [class.danger]="timeLeft < 10">
+                    <span class="timer-icon"><i class="fa-regular fa-clock"></i></span>
+                    <span class="time-display">{{timeLeft}}s</span>
+                    <div class="mini-progress">
+                        <div class="mini-bar" [style.width.%]="(timeLeft / 60) * 100"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Support -->
+            <div *ngIf="questions[currentQuestionIndex].image" class="question-image-container"
+                style="text-align: center; margin-bottom: 20px;">
+                <img [src]="questions[currentQuestionIndex].image" alt="Traffic Sign"
+                    style="max-height: 150px; border: 2px solid #ddd; border-radius: 8px;">
+            </div>
+
+
+
+            <div class="question-text-row"
+                style="display: flex; align-items: start; justify-content: space-between; gap: 15px;">
+                <h2 class="question-text">{{questions[currentQuestionIndex].question}}</h2>
+                <button class="btn-speak" (click)="speakQuestion()" [class.active]="isSpeaking" title="Read Question">
+                    <i class="fa-solid" [class.fa-volume-high]="!isSpeaking" [class.fa-circle-stop]="isSpeaking"></i>
+                </button>
+            </div>
+
+            <div class="options-grid">
+                <button *ngFor="let opt of questions[currentQuestionIndex].options; let i = index" class="option-btn"
+                    [class.selected]="selectedOption === i"
+                    [class.correct]="isAnswered && i === questions[currentQuestionIndex].correct"
+                    [class.wrong]="isAnswered && selectedOption === i && i !== questions[currentQuestionIndex].correct"
+                    [disabled]="isAnswered" (click)="handleOptionSelect(i)">
+                    {{opt}}
+                </button>
+            </div>
+
+            <div class="exam-controls">
+                <button class="next-btn" (click)="handleNext()" [disabled]="selectedOption === null"
+                    [style.opacity]="selectedOption === null ? '0.6' : '1'">
+                    {{currentQuestionIndex === questions.length - 1 ? 'Finish Exam' : 'Next Question'}}
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

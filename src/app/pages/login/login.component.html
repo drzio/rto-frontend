@@ -1,0 +1,53 @@
+<div class="auth-wrapper">
+    <div class="auth-card-split">
+        <div class="left-panel">
+            <div class="auth-box">
+                <div class="logo-area">
+                    <i class="fa-solid fa-building-columns" style="font-size: 40px; color: #2CA58D;"></i>
+                    <h2>RTO Services</h2>
+                    <p>Government of India</p>
+                </div>
+
+                <h3>Welcome Back</h3>
+                <p class="subtitle">Please login to your account</p>
+
+                <form (ngSubmit)="handleSubmit()">
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" [(ngModel)]="email" name="email" placeholder="Enter your email"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" [(ngModel)]="password" name="password"
+                                placeholder="Enter your password" required>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <label class="checkbox-container">
+                            <input type="checkbox"> Remember me
+                        </label>
+                        <a routerLink="/forgot-password" class="forgot-pass">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Login Now</button>
+                </form>
+
+                <p class="footer-text">Don't have an account? <a routerLink="/register">Register here</a></p>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div class="overlay">
+                <h1>Digital RTO Services</h1>
+                <p>Access Driving License, Vehicle Registration, and more from the comfort of your home.</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,202 @@
+
+> user-app-angular@0.0.0 build
+> ng build
+
+[33m❯[39m Building...
+[32m✔[39m Building...
+Application bundle generation failed. [2.457 seconds] - 2026-01-06T16:23:59.902Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of AboutComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/about/about.component.ts:9:28:
+[37m      9 │     imports: [CommonModule, [32mNavbarComponent[37m, FooterComponent],
+        ╵                             [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: FooterComponent is not used within the template of AboutComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/about/about.component.ts:9:45:
+[37m      9 │     imports: [CommonModule, NavbarComponent, [32mFooterComponent[37m],
+        ╵                                              [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of ApplyLicenseComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/apply-license/apply-license.component.ts:12:39:
+[37m      12 │   imports: [CommonModule, FormsModule, [32mNavbarComponent[37m],
+         ╵                                        [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of CategoriesComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/categories/categories.component.ts:10:40:
+[37m      10 │ ...rts: [CommonModule, RouterLink, [32mNavbarComponent[37m, FooterComponent],
+         ╵                                    [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: FooterComponent is not used within the template of CategoriesComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/categories/categories.component.ts:10:57:
+[37m      10 │ ...rts: [CommonModule, RouterLink, NavbarComponent, [32mFooterComponent[37m],
+         ╵                                                     [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of CategoryDetailsComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/category-details/category-details.component.ts:10:40:
+[37m      10 │ ...rts: [CommonModule, RouterLink, [32mNavbarComponent[37m, FooterComponent],
+         ╵                                    [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: FooterComponent is not used within the template of CategoryDetailsComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/category-details/category-details.component.ts:10:57:
+[37m      10 │ ...rts: [CommonModule, RouterLink, NavbarComponent, [32mFooterComponent[37m],
+         ╵                                                     [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of ContactPageComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/contact-page/contact-page.component.ts:11:41:
+[37m      11 │ ...ts: [CommonModule, FormsModule, [32mNavbarComponent[37m, FooterComponent],
+         ╵                                    [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: FooterComponent is not used within the template of ContactPageComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/contact-page/contact-page.component.ts:11:58:
+[37m      11 │ ...ts: [CommonModule, FormsModule, NavbarComponent, [32mFooterComponent[37m],
+         ╵                                                     [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of DashboardComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/dashboard/dashboard.component.ts:11:12:
+[37m      11 │   imports: [[32mNavbarComponent[37m, CommonModule],
+         ╵             [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of ExamRulesComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/exam/exam-rules/exam-rules.component.ts:12:28:
+[37m      12 │     imports: [CommonModule, [32mNavbarComponent[37m, FooterComponent],
+         ╵                             [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: FooterComponent is not used within the template of ExamRulesComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/exam/exam-rules/exam-rules.component.ts:12:45:
+[37m      12 │     imports: [CommonModule, NavbarComponent, [32mFooterComponent[37m],
+         ╵                                              [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of ResultComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/exam/result/result.component.ts:12:40:
+[37m      12 │ ...rts: [CommonModule, RouterLink, [32mNavbarComponent[37m, FooterComponent],
+         ╵                                    [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: FooterComponent is not used within the template of ResultComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/exam/result/result.component.ts:12:57:
+[37m      12 │ ...rts: [CommonModule, RouterLink, NavbarComponent, [32mFooterComponent[37m],
+         ╵                                                     [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of FeaturesComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/features/features.component.ts:10:40:
+[37m      10 │ ...rts: [CommonModule, RouterLink, [32mNavbarComponent[37m, FooterComponent],
+         ╵                                    [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: FooterComponent is not used within the template of FeaturesComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/features/features.component.ts:10:57:
+[37m      10 │ ...rts: [CommonModule, RouterLink, NavbarComponent, [32mFooterComponent[37m],
+         ╵                                                     [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of HomeComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/home/home.component.ts:18:8:
+[37m      18 │         [32mNavbarComponent[37m,
+         ╵         [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: FooterComponent is not used within the template of HomeComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/home/home.component.ts:25:8:
+[37m      25 │         [32mFooterComponent[37m
+         ╵         [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of LoginComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:13:53:
+[37m      13 │ ...imports: [CommonModule, FormsModule, RouterLink, [32mNavbarComponent[37m],
+         ╵                                                     [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of RegisterComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/register/register.component.ts:12:53:
+[37m      12 │ ...imports: [CommonModule, FormsModule, RouterLink, [32mNavbarComponent[37m],
+         ╵                                                     [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of ServiceDetailsComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/service-details/service-details.component.ts:10:40:
+[37m      10 │ ...rts: [CommonModule, RouterLink, [32mNavbarComponent[37m, FooterComponent],
+         ╵                                    [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: FooterComponent is not used within the template of ServiceDetailsComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/service-details/service-details.component.ts:10:57:
+[37m      10 │ ...rts: [CommonModule, RouterLink, NavbarComponent, [32mFooterComponent[37m],
+         ╵                                                     [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of ServicesPageComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/services-page/services-page.component.ts:10:40:
+[37m      10 │ ...rts: [CommonModule, RouterLink, [32mNavbarComponent[37m, FooterComponent],
+         ╵                                    [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: FooterComponent is not used within the template of ServicesPageComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/services-page/services-page.component.ts:10:57:
+[37m      10 │ ...rts: [CommonModule, RouterLink, NavbarComponent, [32mFooterComponent[37m],
+         ╵                                                     [32m~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: NavbarComponent is not used within the template of SlotBookingComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/slot-booking/slot-booking.component.ts:12:28:
+[37m      12 │     imports: [CommonModule, [32mNavbarComponent[37m, FormsModule],
+         ╵                             [32m~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2769: No overload matches this call.
+  Overload 1 of 3, '(value: string): string', gave the following error.
+    Argument of type 'unknown[]' is not assignable to parameter of type 'string'.
+  Overload 2 of 3, '(value: null | undefined): null', gave the following error.
+    Argument of type 'unknown[]' is not assignable to parameter of type 'null | undefined'.
+  Overload 3 of 3, '(value: string | null | undefined): string | null', gave the following error.
+    Argument of type 'unknown[]' is not assignable to parameter of type 'string'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/application-status/application-status.component.html:23:57:
+[37m      23 │ ...an class="value">#{{userApp._id | [32mslice[37m:18:24 | uppercase}}</span>
+         ╵                                      [32m~~~~~[0m
+
+  Error occurs in the template of component ApplicationStatusComponent.
+
+    src/app/pages/application-status/application-status.component.ts:11:15:
+[37m      11 │   templateUrl: [32m'./application-status.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m

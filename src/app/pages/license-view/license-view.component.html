@@ -1,0 +1,324 @@
+<div class="license-page">
+    <div class="container main-content" *ngIf="userApp; else loading">
+        <div class="header-actions no-print">
+            <button class="btn-back" (click)="goBack()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+
+            <!-- LICENSE SWITCHER -->
+            <div class="license-switcher" *ngIf="validLicenses.length > 1"
+                style="display: flex; gap: 10px; background: #f0f0f0; padding: 5px; border-radius: 5px;">
+                <button *ngFor="let lic of validLicenses" (click)="selectLicense(lic)"
+                    [class.active]="userApp?._id === lic._id"
+                    style="padding: 5px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;"
+                    [style.background]="userApp?._id === lic._id ? '#1976d2' : 'transparent'"
+                    [style.color]="userApp?._id === lic._id ? 'white' : '#333'">
+                    {{lic.licenseType === 'Learning' ? 'Learner License' : 'Driving License'}}
+                </button>
+            </div>
+
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button class="btn-download btn-pdf" (click)="downloadOfficialPdf()">
+                    <i class="fas fa-file-pdf"></i> Download {{isLearnerLicense ? 'Learner' : 'Driving'}} License
+                </button>
+            </div>
+        </div>
+
+        <!-- LEARNER LICENSE CERTIFICATE (FORM 3) - REFINED TO MATCH IMAGE -->
+        <div class="certificate-container" id="license-certificate" *ngIf="isLearnerLicense">
+            <div class="cert-title-block">
+                <h2 class="dept-name">TRANSPORT DEPARTMENT <span class="state-name">Gujarat</span></h2>
+                <h3 class="rto-name">RTO, AHMEDABAD</h3>
+                <p class="form-tag">FORM 3</p>
+                <p class="rule-tag">[See Rule 3(a) and 13]</p>
+                <h1 class="doc-title">LEARNER'S LICENCE</h1>
+            </div>
+
+            <div class="meta-row">
+                <span>Fee Details Rs.750.0/- /GJ01/{{userApp?._id?.slice(-7).toUpperCase()}}</span>
+                <span>ApplNo: {{userApp?.applicationNo || userApp?._id?.slice(-8) | uppercase}}</span>
+                <span>Issue Dt. {{issueDate | date:'dd-MM-yyyy'}}</span>
+            </div>
+
+            <div class="content-split">
+                <div class="details-side">
+                    <div class="info-row">
+                        <span class="num">1.</span>
+                        <span class="label">Licence No.</span>
+                        <span class="value">{{licenseNumber}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="num">2.</span>
+                        <span class="label">Name</span>
+                        <span class="value">{{userApp?.userId?.name | uppercase}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="num">3.</span>
+                        <span class="label">Father's Name</span>
+                        <span class="value">{{userApp?.personalDetails?.fatherName | uppercase}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="num">4.</span>
+                        <span class="label">Date of Birth</span>
+                        <span class="value">{{userApp?.personalDetails?.dob | date:'dd-MM-yyyy'}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="num">5.</span>
+                        <span class="label">Optional/Blood Group-<br>RH Factor</span>
+                        <span class="value">{{userApp?.personalDetails?.bloodGroup || 'Unknown'}}</span>
+                    </div>
+                    <div class="info-row address-row">
+                        <span class="num">6.</span>
+                        <span class="label">Present Address</span>
+                        <span class="value">{{userApp?.personalDetails?.presentAddress ||
+                            userApp?.personalDetails?.address}}</span>
+                    </div>
+                    <div class="info-row address-row">
+                        <span class="num">7.</span>
+                        <span class="label">Permanent</span>
+                        <span class="value">{{userApp?.personalDetails?.permanentAddress ||
+                            userApp?.personalDetails?.address}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="num">8.</span>
+                        <span class="label">Marks of Identification</span>
+                        <span class="value">(1) {{userApp?.personalDetails?.identificationMarks?.split(',')[0] ||
+                            ''}}<br>(2) {{userApp?.personalDetails?.identificationMarks?.split(',')[1] || ''}}</span>
+                    </div>
+                </div>
+
+                <div class="photo-side">
+                    <div class="photo-box">
+                        <img [src]="photoUrl" alt="Applicant Photo" crossorigin="anonymous"
+                            onerror="this.src='assets/avatar-placeholder.svg'">
+                    </div>
+                    <div style="font-size: 13px; font-weight: bold;">{{userApp?.userId?.name}}</div>
+                    <div class="sig-container">
+                        <img *ngIf="signatureUrl" [src]="signatureUrl" alt="Signature" class="sig-img"
+                            crossorigin="anonymous" onerror="this.style.display='none'">
+                        <div class="sig-label">Holder's Signature</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="licence-description">
+                <span>is licenced to drive a Motor Vehicles of the following description through out India and in case
+                    of E-rickshaw or E-cart, in specified areas or routes, as a learner,subject to the provisions of
+                    Rule 3 of the Centeral Motor Vehicle Rules 1989:</span><br>
+                <span class="vehicle-class-box">{{ userApp?.vehicleClass?.join(', ') || 'Motor Cycle with Gear(Non
+                    Transport), LMV-NT.' }}</span>
+            </div>
+
+            <div class="rules-text">
+                <p>*The holder of the licence has passed the preliminary test referred to in rule 11(1) of the CMV Rules
+                    ,1989.</p>
+                <p>*The holder of the licence is exempted from the medical test under rule 6 and from the Preliminary
+                    test under rule11(2)of the Central Motor Vehicle Rules,1989</p>
+                <p>*Strike off which ever is inapplicable</p>
+            </div>
+
+            <div class="validity-row">
+                <span class="v-label">This Licence is valid</span>
+                <span class="v-date">{{issueDate | date:'dd-MM-yyyy'}}</span>
+                <span class="v-label">To</span>
+                <span class="v-date">{{expiryDate | date:'dd-MM-yyyy'}}</span>
+            </div>
+
+            <div class="cert-footer">
+                <div class="authority-sig">
+                    <div class="placeholder-sig"></div>
+                    <div>Signature and Designation of<br>the Licensing Authority<br>RTO, AHMEDABAD</div>
+                </div>
+            </div>
+
+            <div class="warning-section">
+                <p class="w-title">Warning:</p>
+                <p class="w-text">The attention of the holder of this licence is drawn to rule 3 of CMV Rules, 1989
+                    which prohibits him from driving any motor vehicle unless he has besides him a person duly licenced
+                    to drive the vehicle and in every case , the vehicle carries "L" plates both in front and in the
+                    rear of the vehicle.</p>
+            </div>
+        </div>
+
+
+        <!-- DRIVING LICENSE CARD (SMART CARD STYLE) -->
+        <div class="dl-smart-card-container" id="license-card" *ngIf="!isLearnerLicense">
+
+            <!-- Front Side -->
+            <div class="smart-card front">
+                <!-- Header -->
+                <div class="sc-header">
+                    <div class="emblem-box">
+                        <img src="assets/emblem.svg" alt="Emblem"
+                            onerror="this.src='assets/emblem.svg'; this.onerror=null; this.style.opacity='0.5';">
+                        <span class="satyameva">SATYAMEVA JAYATE</span>
+                    </div>
+                    <div class="sc-title-block">
+                        <h3 class="line1">Indian Union Driving Licence</h3>
+                        <h4 class="line2">Issued by GOVERNMENT OF GUJARAT</h4>
+                    </div>
+                    <div class="state-circle">GJ</div>
+                </div>
+
+                <!-- Content -->
+                <div class="sc-body">
+                    <!-- Dates Row -->
+                    <div class="sc-dates-row">
+                        <div class="sc-date-col">
+                            <span class="sc-label">Issue Date</span>
+                            <span class="sc-val">{{issueDate | date:'dd-MM-yyyy'}}</span>
+                        </div>
+                        <div class="sc-date-col">
+                            <span class="sc-label">Validity ( NT )</span>
+                            <span class="sc-val">{{expiryDate | date:'dd-MM-yyyy'}}</span>
+                        </div>
+                        <div class="sc-date-col">
+                            <span class="sc-label">Validity ( TR )</span>
+                            <span class="sc-val">--------</span>
+                        </div>
+                    </div>
+
+                    <!-- Details and Photo Row -->
+                    <div class="sc-details-blocks">
+                        <div class="sc-info-block">
+                            <div class="sc-row mt-2">
+                                <span class="sc-label-inline">Name :</span>
+                                <span class="sc-val-inline bold">{{userApp?.userId?.name | uppercase}}</span>
+                            </div>
+
+                            <div class="sc-row">
+                                <span class="sc-label-inline">Date Of Birth :</span>
+                                <span class="sc-val-inline">{{userApp?.personalDetails?.dob | date:'dd-MM-yyyy'}}</span>
+                                <span class="sc-label-inline ml-3">Blood Group:</span>
+                                <span class="sc-val-inline">{{userApp?.personalDetails?.bloodGroup || 'B+'}}</span>
+                            </div>
+
+                            <div class="sc-row align-top">
+                                <span class="sc-label-inline">Son/Daughter/Wife of:</span>
+                                <span class="sc-val-inline w-name">{{userApp?.personalDetails?.fatherName |
+                                    uppercase}}</span>
+                            </div>
+
+                            <div class="sc-row" style="margin-top: -5px;">
+                                <div style="flex:1"></div>
+                                <span class="sc-label-inline">Organ Donor :</span>
+                                <span class="sc-val-inline">No</span>
+                            </div>
+
+                            <div class="sc-row">
+                                <span class="sc-label-inline">Address:</span>
+                            </div>
+                            <div class="sc-row">
+                                <span class="sc-val-inline address">{{userApp?.personalDetails?.address ||
+                                    userApp?.personalDetails?.presentAddress | uppercase}}</span>
+                            </div>
+                        </div>
+
+                        <!-- Photo & Signature Box -->
+                        <div class="sc-photo-block">
+                            <div class="sc-photo">
+                                <img [src]="photoUrl" alt="Photo" crossorigin="anonymous"
+                                    onerror="this.src='assets/avatar-placeholder.svg'">
+                            </div>
+                            <div class="sc-signature">
+                                <img *ngIf="signatureUrl" [src]="signatureUrl" alt="Signature" crossorigin="anonymous"
+                                    onerror="this.style.display='none'">
+                            </div>
+                            <div class="sc-sig-label">Holder's Signature</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vertical Issue Date -->
+                <div class="sc-vertical-date">
+                    Date of First Issue {{issueDate | date:'dd-MM-yyyy'}}
+                </div>
+            </div>
+
+            <!-- Back Side -->
+            <div class="smart-card back">
+                <div class="sc-back-header">
+                    <div class="dl-no-box">
+                        <span class="sc-label-inline">DL No:</span>
+                        <span class="sc-val-inline bold">GJ14 {{issueDate | date:'yyyy'}}00{{userApp?._id?.slice(-7) |
+                            uppercase}}</span>
+                    </div>
+                </div>
+
+                <div class="sc-back-meta">
+                    <div class="sc-qr-box">
+                        <div class="qr-placeholder">
+                            <!-- In a real app, generate a QR. Here simulate structure -->
+                            <img src="assets/qr-placeholder.png" alt="QR" onerror="this.style.display='none'">
+                            <span style="font-size:8px; color:#666;" *ngIf="true">QR CODE</span>
+                        </div>
+                    </div>
+                    <div class="sc-validity-box">
+                        <div class="bold text-center mb-1">ADPVEH No.(Regn.Numbers)</div>
+                        <div class="d-flex justify-content-around mt-2">
+                            <span>Hazardous validity</span>
+                            <span>Hill Validity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sc-table-container">
+                    <table class="sc-table">
+                        <thead>
+                            <tr>
+                                <th>Class of<br>Vehicle</th>
+                                <th>Code</th>
+                                <th>Issued by</th>
+                                <th>Date of<br>Issue</th>
+                                <th>Vehicle<br>Category</th>
+                                <th>Badge<br>Number</th>
+                                <th>Badge<br>issued date</th>
+                                <th>Badge<br>Issued By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let cls of (userApp?.vehicleClass?.length ? userApp?.vehicleClass : ['MCWG', 'LMV'])">
+                                <td class="text-center"><i class="fas fa-{{cls === 'MCWG' ? 'motorcycle' : 'car'}}"></i>
+                                </td>
+                                <td class="text-center">{{cls}}</td>
+                                <td class="text-center">GJ14</td>
+                                <td class="text-center">{{issueDate | date:'dd-MM-yyyy'}}</td>
+                                <td class="text-center">NT</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Vertical Rule Text -->
+                <div class="sc-vertical-rule">
+                    Form 7 Rule 16(2)
+                </div>
+
+                <div class="sc-back-footer">
+                    <div class="emergency-box">
+                        <div class="sc-label">Emergency Contact Number</div>
+                        <div class="sc-val-inline bold">91-</div>
+                    </div>
+                    <div class="authority-box">
+                        <!-- Simulated signature stroke -->
+                        <div class="auth-sig-stroke"></div>
+                        <div class="sc-sig-label">Licencing Authority</div>
+                        <div class="sc-sig-label small-auth">REGIONAL TRANSPORT OFFICE, GUJARAT</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="text-center" style="padding-top: 150px;">
+        <i class="fas fa-spinner fa-spin fa-3x"></i>
+        <p class="mt-3">Loading License Details...</p>
+    </div>
+</ng-template>

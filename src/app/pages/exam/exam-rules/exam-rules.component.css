@@ -1,0 +1,181 @@
+/* Exam Module CSS - Themed */
+
+/* Rules Page */
+.rules-list {
+    list-style: none;
+    padding: 0;
+}
+
+.rules-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+    font-size: 1.05rem;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.rules-list li i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+/* Exam Interface */
+.exam-container {
+    max-width: 900px;
+    margin: 40px auto;
+    display: flex;
+    gap: 30px;
+}
+
+.question-panel {
+    flex: 3;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.timer-panel {
+    flex: 1;
+    background: var(--secondary-color);
+    color: var(--white);
+    padding: 20px;
+    border-radius: 20px;
+    height: fit-content;
+    text-align: center;
+}
+
+.timer-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.time-left {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    display: block;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 10px;
+}
+
+.q-number {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.question-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: var(--secondary-color);
+}
+
+.options-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.option-btn {
+    text-align: left;
+    background: #f8fafc;
+    border: 2px solid #f1f5f9;
+    padding: 16px 20px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.option-btn:hover {
+    background: #f1f5f9;
+    border-color: #e2e8f0;
+}
+
+.option-btn.selected {
+    background: rgba(44, 165, 141, 0.08);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.exam-controls {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.next-btn {
+    background: var(--secondary-color);
+    color: var(--white);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(36, 59, 85, 0.2);
+}
+
+/* Result Page */
+.result-card {
+    text-align: center;
+    padding: 50px;
+}
+
+.score-circle {
+    width: 150px;
+    height: 150px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 30px;
+    border: 10px solid var(--primary-color);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.score-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+}
+
+.score-label {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.pass-status {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.pass-status.passed {
+    color: var(--primary-color);
+}
+
+.pass-status.failed {
+    color: #e74c3c;
+}

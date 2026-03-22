@@ -1,0 +1,76 @@
+/* Services Page - Themed */
+.services-grid-themed {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding-top: 10px;
+}
+
+.service-card-themed {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.service-card-themed:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
+}
+
+.svc-img-wrap {
+    height: 200px;
+    overflow: hidden;
+}
+
+.svc-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.service-card-themed:hover .svc-img-wrap img {
+    transform: scale(1.08);
+}
+
+.svc-content {
+    padding: 28px;
+}
+
+.svc-content h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.svc-content p {
+    color: var(--text-light);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.svc-apply-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: gap 0.3s ease;
+}
+
+.svc-apply-btn:hover {
+    gap: 14px;
+}
+
+@media (max-width: 768px) {
+    .services-grid-themed {
+        grid-template-columns: 1fr;
+    }
+}

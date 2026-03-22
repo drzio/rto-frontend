@@ -1,0 +1,339 @@
+<div class="page-wrapper">
+    <div class="bg-decor">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="mesh"></div>
+    </div>
+
+    <div class="hero-banner">
+        <div class="container">
+            <span class="badge-pill">New Application</span>
+            <h1>{{currentConfig.title}}</h1>
+            <p>{{currentConfig.description}}</p>
+        </div>
+    </div>
+
+    <section class="glass-section">
+        <div class="container">
+            <div class="glass-card-main wide">
+                <div class="apply-container">
+
+                    <!-- Personal Details (Standard - Hidden for Permanent & Renewal) -->
+                    <div class="form-section"
+                        *ngIf="currentConfig.fields.includes('personal') && currentConfig.type !== 'Permanent' && currentConfig.type !== 'Renewal'">
+                        <h3>Personal Details</h3>
+
+                        <div class="form-group" *ngIf="currentConfig.fields.includes('learnerLicenseNo')">
+                            <label>Learner License Number</label>
+                            <div style="display: flex; gap: 10px; align-items: flex-end;">
+                                <input type="text" [(ngModel)]="formData.learnerLicenseNo"
+                                    placeholder="Enter valid LL number" style="flex: 1;">
+                            </div>
+                            <small class="error-text"
+                                *ngIf="errors.learnerLicenseNo">{{errors.learnerLicenseNo}}</small>
+                        </div>
+
+                        <!-- Extra Field: Old License No -->
+                        <div class="form-group" *ngIf="currentConfig.fields.includes('oldLicenseNo')">
+                            <label>Previous / Permanent Driving License Number</label>
+                            <div style="display: flex; gap: 10px; align-items: flex-end;">
+                                <input type="text" [(ngModel)]="formData.oldLicenseNo"
+                                    placeholder="Enter license number" style="flex: 1;">
+                            </div>
+                            <small class="error-text" *ngIf="errors.oldLicenseNo">{{errors.oldLicenseNo}}</small>
+                        </div>
+
+                        <div class="form-group" *ngIf="currentConfig.fields.includes('duplicateReason')">
+                            <label>Reason for Duplicate License</label>
+                            <select [(ngModel)]="formData.reason">
+                                <option value="">Select Reason</option>
+                                <option value="Lost">Lost</option>
+                                <option value="Stolen">Stolen</option>
+                                <option value="Damaged">Damaged</option>
+                            </select>
+                            <small class="error-text" *ngIf="errors.reason">{{errors.reason}}</small>
+                        </div>
+
+                        <div class="form-cols" *ngIf="formData.reason === 'Stolen' || formData.reason === 'Lost'">
+                            <div class="form-group">
+                                <label>FIR Number</label>
+                                <input type="text" [(ngModel)]="formData.firNo" placeholder="Enter FIR Number">
+                                <small class="error-text" *ngIf="errors.firNo">{{errors.firNo}}</small>
+                            </div>
+                            <div class="form-group">
+                                <label>FIR Date</label>
+                                <input type="date" [(ngModel)]="formData.firDate">
+                                <small class="error-text" *ngIf="errors.firDate">{{errors.firDate}}</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" [(ngModel)]="formData.fullName" placeholder="Enter full name">
+                            <small class="error-text" *ngIf="errors.fullName">{{errors.fullName}}</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Father's Name</label>
+                            <input type="text" [(ngModel)]="formData.fatherName" placeholder="Enter father's name">
+                            <small class="error-text" *ngIf="errors.fatherName">{{errors.fatherName}}</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Aadhar Number</label>
+                            <input type="text" [(ngModel)]="formData.aadharNumber"
+                                placeholder="Enter 12-digit Aadhar Number" maxlength="12">
+                            <small class="error-text" *ngIf="errors.aadharNumber">{{errors.aadharNumber}}</small>
+                        </div>
+
+                        <div class="form-cols">
+                            <div class="form-group">
+                                <label>Date of Birth</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <input type="date" [(ngModel)]="formData.dob" style="flex: 1;">
+                                    <button *ngIf="currentConfig.fields.includes('learnerLicenseNo')" type="button"
+                                        class="btn-secondary" (click)="fetchLLDetails()">Fetch Details</button>
+                                </div>
+                                <small class="error-text" *ngIf="errors.dob">{{errors.dob}}</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select [(ngModel)]="formData.gender">
+                                    <option value="">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <small class="error-text" *ngIf="errors.gender">{{errors.gender}}</small>
+                            </div>
+                        </div>
+
+                        <div class="form-cols">
+                            <div class="form-group">
+                                <select [(ngModel)]="formData.bloodGroup">
+                                    <option value="">Select</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                </select>
+                                <small class="error-text" *ngIf="errors.bloodGroup">{{errors.bloodGroup}}</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Permanent Address</label>
+                            <textarea [(ngModel)]="formData.permanentAddress" rows="3"
+                                placeholder="Enter Permanent Address"></textarea>
+                            <small class="error-text"
+                                *ngIf="errors.permanentAddress">{{errors.permanentAddress}}</small>
+                        </div>
+
+                        <div class="form-group checkbox-group"
+                            style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <input type="checkbox" id="sameAddress" [(ngModel)]="formData.sameAddress"
+                                (change)="onAddressCheckChange()">
+                            <label for="sameAddress" style="margin: 0; cursor: pointer;">Present address same as
+                                Permanent
+                                address</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Present Address</label>
+                            <textarea [(ngModel)]="formData.presentAddress" rows="3" placeholder="Enter Present Address"
+                                [disabled]="formData.sameAddress"></textarea>
+                            <small class="error-text" *ngIf="errors.presentAddress">{{errors.presentAddress}}</small>
+                        </div>
+                    </div>
+
+                    <!-- COMPACT VIEW: Permanent License & Renewal -->
+                    <div class="form-section"
+                        *ngIf="currentConfig.type === 'Permanent' || currentConfig.type === 'Renewal'">
+                        <h3>{{ currentConfig.type === 'Renewal' ? 'Link Existing License' : 'Link Learner License' }}
+                        </h3>
+                        <p style="color: #666; margin-bottom: 20px;">Enter your details to fetch data from previous
+                            license.</p>
+
+                        <div class="form-cols">
+                            <!-- For Permanent: LL No -->
+                            <div class="form-group" *ngIf="currentConfig.type === 'Permanent'">
+                                <label>Learner License Number</label>
+                                <input type="text" [(ngModel)]="formData.learnerLicenseNo" placeholder="GJ0120230000123"
+                                    style="text-transform: uppercase;">
+                                <small class="error-text"
+                                    *ngIf="errors.learnerLicenseNo">{{errors.learnerLicenseNo}}</small>
+                            </div>
+
+                            <!-- For Renewal: DL No -->
+                            <div class="form-group" *ngIf="currentConfig.type === 'Renewal'">
+                                <label>Driving License Number</label>
+                                <input type="text" [(ngModel)]="formData.oldLicenseNo" placeholder="GJ0120201234567"
+                                    style="text-transform: uppercase;">
+                                <small class="error-text" *ngIf="errors.oldLicenseNo">{{errors.oldLicenseNo}}</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Date of Birth</label>
+                                <input type="date" [(ngModel)]="formData.dob">
+                                <small class="error-text" *ngIf="errors.dob">{{errors.dob}}</small>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-secondary"
+                            (click)="currentConfig.type === 'Renewal' ? fetchDLDetails() : fetchLLDetails()"
+                            style="margin-bottom: 20px;">
+                            Fetch Details
+                        </button>
+
+                        <!-- Read-Only Summary -->
+                        <div class="summary-card" *ngIf="formData.fullName"
+                            style="background: #e3f2fd; padding: 15px; border-radius: 8px; border: 1px solid #90caf9; margin-bottom: 20px;">
+                            <h4 style="margin-top: 0; color: #1976d2;">Applicant Summary</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div>
+                                    <label style="font-size: 12px; color: #666;">Full Name</label>
+                                    <div style="font-weight: 600;">{{formData.fullName}}</div>
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px; color: #666;">Father's Name</label>
+                                    <div style="font-weight: 600;">{{formData.fatherName}}</div>
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px; color: #666;">Blood Group</label>
+                                    <div style="font-weight: 600;">{{formData.bloodGroup}}</div>
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px; color: #666;">RTO Region</label>
+                                    <div style="font-weight: 600;">{{ (formData.learnerLicenseNo ||
+                                        formData.oldLicenseNo ||
+                                        '').substring(0, 4) || 'GJ--' }}</div>
+                                </div>
+                                <div style="grid-column: span 2;">
+                                    <label style="font-size: 12px; color: #666;">Address</label>
+                                    <div style="font-weight: 600;">{{formData.presentAddress}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle Class Selection (For Learner License) -->
+                    <div class="form-section" *ngIf="currentConfig.fields.includes('vehicleClassDetails')">
+                        <h3>Vehicle Class</h3>
+                        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">
+                            {{ currentConfig.type === 'Permanent' ? 'Select the vehicle class for your Driving Test' :
+                            'Select the class
+                            of vehicles you want to apply for.' }}
+                        </p>
+
+                        <div class="checkbox-grid"
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+                            <label
+                                style="display: flex; align-items: center; gap: 8px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; cursor: pointer;">
+                                <input type="checkbox" [(ngModel)]="formData.vehicleClass.MCWG"> MCWG (Motor Cycle With
+                                Gear)
+                            </label>
+                            <label
+                                style="display: flex; align-items: center; gap: 8px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; cursor: pointer;">
+                                <input type="checkbox" [(ngModel)]="formData.vehicleClass.LMV"> LMV (Light Motor
+                                Vehicle)
+                            </label>
+                            <label
+                                style="display: flex; align-items: center; gap: 8px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; cursor: pointer;">
+                                <input type="checkbox" [(ngModel)]="formData.vehicleClass.HMV"> HMV (Heavy Motor
+                                Vehicle)
+                            </label>
+                            <label
+                                style="display: flex; align-items: center; gap: 8px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; cursor: pointer;">
+                                <input type="checkbox" [(ngModel)]="formData.vehicleClass.HGMV"> HGMV (Heavy Goods Motor
+                                Vehicle)
+                            </label>
+                        </div>
+                        <small class="error-text" *ngIf="errors.vehicleClass">{{errors.vehicleClass}}</small>
+                    </div>
+
+                    <!-- Vehicle Details -->
+                    <div class="form-section" *ngIf="currentConfig.fields.includes('vehicle')">
+                        <h3>Vehicle Details</h3>
+
+                        <div class="form-group">
+                            <label>Chassis Number</label>
+                            <input type="text" [(ngModel)]="formData.chassisNo" placeholder="Enter Chassis Number">
+                            <small class="error-text" *ngIf="errors.chassisNo">{{errors.chassisNo}}</small>
+                        </div>
+
+                        <!-- Show Vehicle Model ONLY for New Registration -->
+                        <div class="form-group" *ngIf="currentConfig.type === 'Registration'">
+                            <label>Vehicle Model</label>
+                            <input type="text" [(ngModel)]="formData.vehicleModel"
+                                placeholder="Enter Vehicle Model (e.g. Swift Dzire)">
+                            <small class="error-text" *ngIf="errors.vehicleModel">{{errors.vehicleModel}}</small>
+                        </div>
+
+                        <!-- Show Registration Number for Existing Vehicles (Transfer, Tax, Fitness, NOC) -->
+                        <div class="form-group" *ngIf="currentConfig.type !== 'Registration'">
+                            <label>Vehicle Registration Number</label>
+                            <input type="text" [(ngModel)]="formData.vehicleRegNo"
+                                placeholder="Enter Registration No (e.g. GJ01AB1234)">
+                            <small class="error-text" *ngIf="errors.vehicleRegNo">{{errors.vehicleRegNo}}</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Owner Name</label>
+                            <input type="text" [(ngModel)]="formData.fullName" placeholder="Enter Owner Name">
+                            <small class="error-text" *ngIf="errors.ownerName">{{errors.ownerName}}</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea [(ngModel)]="formData.address" rows="3"></textarea>
+                            <small class="error-text" *ngIf="errors.address">{{errors.address}}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Upload Documents</h3>
+                        <p class="crypto-hint">(Please upload clear copies)</p>
+
+                        <!-- AI Scanner Feature -->
+                        <div class="ocr-section"
+                            style="margin-bottom: 20px; padding: 15px; border: 1px dashed #007bff; border-radius: 8px; background: #f0f7ff;">
+                            <h4>🚀 AI Quick Fill (Experimental)</h4>
+                            <p>Upload your Aadhaar Card or ID Proof to auto-fill your details.</p>
+                            <input type="file" (change)="scanDocument($event)" accept="image/*">
+                            <p *ngIf="isScanning" style="color: #007bff; font-weight: bold;">Scanning... Please wait...
+                            </p>
+                        </div>
+
+                        <div class="doc-row" *ngFor="let doc of currentConfig.documents">
+                            <label>{{doc.label}}</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="file" (change)="onFileSelected($event, doc.key)" accept="image/*">
+                                <span class="badge">Required</span>
+                                <span *ngIf="verifyingDocs[doc.key]" class="text-primary small">
+                                    <i class="fas fa-spinner fa-spin"></i> Verifying...
+                                </span>
+                                <span *ngIf="uploadedFiles[doc.key] && !verifyingDocs[doc.key]"
+                                    class="text-success small">
+                                    <i class="fas fa-check-circle"></i> Verified
+                                </span>
+                            </div>
+                            <div style="width: 100%"><small class="error-text"
+                                    *ngIf="errors[doc.key]">{{errors[doc.key]}}</small></div>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button class="theme-btn" (click)="submitApplication()" [disabled]="isSubmitting">
+                            <span class="text">Proceed to Pay</span>
+                            <span class="icon"><i class="fa-solid fa-arrow-right"></i></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

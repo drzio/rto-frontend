@@ -1,0 +1,635 @@
+.certificate-container {
+    background: #fff;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    color: #000;
+    line-height: 1.4;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cert-title-block {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.dept-name {
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.state-name {
+    margin-left: 20px;
+}
+
+.rto-name {
+    font-size: 14px;
+    font-weight: normal;
+    margin: 5px 0;
+    text-transform: uppercase;
+}
+
+.form-tag,
+.rule-tag {
+    text-align: center;
+    font-size: 12px;
+    margin: 2px 0;
+}
+
+.doc-title {
+    font-size: 16px;
+    font-weight: normal;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+
+.meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-bottom: 20px;
+}
+
+.content-split {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.details-side {
+    flex: 1;
+    font-size: 12px;
+}
+
+.info-row {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.info-row .num {
+    width: 20px;
+}
+
+.info-row .label {
+    width: 200px;
+}
+
+.info-row .value {
+    flex: 1;
+}
+
+.photo-side {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.photo-box {
+    width: 100px;
+    height: 120px;
+    border: 1px solid #000;
+}
+
+.photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sig-container {
+    padding: 2px;
+    text-align: center;
+    font-size: 12px;
+    width: 130px;
+    background: #d4d4d4;
+    font-weight: bold;
+}
+
+.sig-img {
+    max-height: 40px;
+    max-width: 100%;
+}
+
+.sig-label {
+    margin-top: 5px;
+    color: #000;
+}
+
+.licence-description {
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.vehicle-class-box {
+    margin-top: 5px;
+    border-bottom: 1px dotted #000;
+    padding-bottom: 2px;
+    display: inline-block;
+    min-width: 80%;
+}
+
+.rules-text {
+    font-size: 11px;
+    margin-bottom: 20px;
+}
+
+.rules-text p {
+    margin: 4px 0;
+}
+
+.validity-row {
+    font-size: 12px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.v-date {
+    margin: 0 15px;
+}
+
+.cert-footer {
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+    font-size: 11px;
+    margin-bottom: 20px;
+}
+
+.authority-sig {
+    width: 200px;
+}
+
+.placeholder-sig {
+    height: 40px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.placeholder-sig::after {
+    content: "Signature...";
+    font-family: 'Brush Script MT', cursive;
+    font-size: 24px;
+    color: #00008B;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.warning-section {
+    font-size: 11px;
+}
+
+.w-title {
+    margin: 0 0 5px 0;
+}
+
+.w-text {
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Base resets inside component to ensure printable look */
+.details-side .value.bold {
+    font-weight: bold;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .license-page,
+    .license-page * {
+        visibility: visible;
+    }
+
+    .license-page {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .certificate-container {
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* --- RESTORED PAGE LAYOUT STYLES --- */
+.license-page {
+    padding: 100px 0 2rem 0;
+    /* Increased top padding to clear fixed navbar */
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.main-content {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-back {
+    padding: 8px 16px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    color: #495057;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-back:hover {
+    background: #e9ecef;
+    color: #212529;
+}
+
+.btn-download {
+    padding: 10px 20px;
+    background: var(--primary-color, #2CA58D);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-download:hover {
+    background: var(--primary-dark, #207d6a);
+}
+
+/* Adjust text alignment based on user feedback */
+.info-row .label {
+    width: 250px;
+    /* Made wider for align */
+}
+
+.info-row .num {
+    width: 30px;
+}
+
+/* --- SMART CARD DRIVING LICENSE FRONTEND PREVIEW --- */
+.dl-smart-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+}
+
+.smart-card {
+    width: 400px;
+    height: 250px;
+    background: #f0faff;
+    border-radius: 12px;
+    border: 1px solid #a0a0a0;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    box-sizing: border-box;
+}
+
+.sc-header {
+    background: #d0e8ff;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    position: relative;
+    border-bottom: 1px solid #a0a0a0;
+}
+
+.emblem-box {
+    width: 45px;
+    text-align: center;
+}
+
+.emblem-box img {
+    height: 25px;
+}
+
+.satyameva {
+    font-size: 5px;
+    font-weight: bold;
+    display: block;
+    margin-top: 1px;
+}
+
+.sc-title-block {
+    flex: 1;
+    text-align: center;
+}
+
+.sc-title-block .line1 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.sc-title-block .line2 {
+    margin: 0;
+    font-size: 9px;
+    font-weight: bold;
+    color: #003399;
+}
+
+.state-circle {
+    width: 25px;
+    height: 25px;
+    background: #ff9933;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    border: 1px solid #cc7a00;
+}
+
+.sc-body {
+    padding: 10px 15px;
+}
+
+.sc-dates-row {
+    display: flex;
+    margin-bottom: 5px;
+    padding-left: 50px;
+    /* Offset for simulated chip area */
+}
+
+.sc-date-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.sc-date-col .sc-label {
+    font-size: 8px;
+    font-weight: bold;
+}
+
+.sc-date-col .sc-val {
+    font-size: 9px;
+    font-weight: bold;
+}
+
+.sc-details-blocks {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sc-info-block {
+    flex: 1;
+    font-size: 8px;
+    max-width: 240px;
+}
+
+.sc-row {
+    margin-bottom: 3px;
+    line-height: 1.2;
+}
+
+.sc-label-inline {
+    font-weight: bold;
+    display: inline-block;
+}
+
+.sc-val-inline {
+    margin-left: 3px;
+    font-size: 9px;
+}
+
+.sc-val-inline.bold {
+    font-weight: bold;
+}
+
+.sc-val-inline.address {
+    display: block;
+    line-height: 1.1;
+}
+
+.sc-photo-block {
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -10px;
+}
+
+.sc-photo {
+    width: 65px;
+    height: 80px;
+    border: 1px solid #999;
+    background: #ddd;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.sc-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sc-signature {
+    width: 70px;
+    height: 22px;
+    background: white;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+}
+
+.sc-signature img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.sc-sig-label {
+    font-size: 7px;
+    text-align: center;
+    margin-top: 2px;
+    font-weight: bold;
+}
+
+.sc-vertical-date {
+    position: absolute;
+    right: 5px;
+    bottom: 50px;
+    transform: rotate(-90deg);
+    transform-origin: right bottom;
+    font-size: 7px;
+    white-space: nowrap;
+}
+
+/* BACK SIDE CSS */
+.sc-back-header {
+    background: #f0faff;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: 1px solid #ccc;
+    /* Very subtle separation */
+}
+
+.dl-no-box {
+    font-size: 11px;
+}
+
+.sc-back-meta {
+    display: flex;
+    padding: 5px 15px;
+    align-items: center;
+}
+
+.sc-qr-box {
+    width: 50px;
+}
+
+.qr-placeholder {
+    width: 45px;
+    height: 45px;
+    background: #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #999;
+}
+
+.qr-placeholder img {
+    width: 100%;
+    height: 100%;
+}
+
+.sc-validity-box {
+    flex: 1;
+    font-size: 8px;
+    padding-left: 20px;
+}
+
+.sc-table-container {
+    padding: 0 15px;
+}
+
+.sc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7px;
+    border: 1px solid #000;
+}
+
+.sc-table th,
+.sc-table td {
+    border: 1px solid #000;
+    padding: 2px;
+}
+
+.sc-table th {
+    background: transparent;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.1;
+}
+
+.sc-table td.text-center {
+    text-align: center;
+}
+
+.sc-vertical-rule {
+    position: absolute;
+    right: 5px;
+    top: 130px;
+    transform: rotate(-90deg);
+    transform-origin: right top;
+    font-size: 6px;
+    white-space: nowrap;
+}
+
+.sc-back-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 10px 15px;
+}
+
+.emergency-box {
+    font-size: 8px;
+}
+
+.authority-box {
+    text-align: center;
+    width: 120px;
+    position: relative;
+}
+
+.auth-sig-stroke {
+    height: 15px;
+    /* Simulated signature */
+    background-image: radial-gradient(circle at 10px 10px, transparent 0, transparent 4px, #000080 5px, transparent 6px);
+    background-size: 20px 20px;
+    background-position: center;
+    opacity: 0.5;
+    margin-bottom: 2px;
+}
+
+.small-auth {
+    font-size: 6px;
+    font-weight: normal;
+}
+
+@media print {
+    .dl-smart-card-container {
+        margin: 0;
+    }
+}

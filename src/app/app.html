@@ -1,0 +1,9 @@
+<app-toast></app-toast>
+<app-news-ticker *ngIf="!isAuthPage"></app-news-ticker>
+<app-navbar *ngIf="!isAuthPage"></app-navbar>
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>
+
+<app-footer *ngIf="!isAuthPage"></app-footer>

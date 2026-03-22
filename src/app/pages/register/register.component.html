@@ -1,0 +1,78 @@
+<div class="auth-wrapper">
+    <div class="auth-card-split register-mode">
+        <div class="left-panel">
+            <div class="auth-box">
+                <div class="logo-area">
+                    <i class="fa-solid fa-building-columns" style="font-size: 32px; color: #2CA58D;"></i>
+                    <h2>RTO Services</h2>
+                </div>
+
+                <h3>Create Account</h3>
+                <p class="subtitle">Join us to access digital transport services</p>
+
+                <form (ngSubmit)="handleSubmit()">
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" [(ngModel)]="formData.fullName" name="fullName"
+                                placeholder="Enter your full name" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" [(ngModel)]="formData.email" name="email" placeholder="Enter your email"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Mobile Number</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-phone"></i>
+                            <input type="text" [(ngModel)]="formData.mobile" name="mobile"
+                                placeholder="Enter 10-digit mobile" maxlength="10" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" [(ngModel)]="formData.password" name="password"
+                                placeholder="Create a password" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Confirm Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" [(ngModel)]="formData.confirmPassword" name="confirmPassword"
+                                placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <label class="checkbox-container">
+                            <input type="checkbox" required> I agree to the <a href="#">Terms of Service</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Sign Up</button>
+                </form>
+
+                <p class="footer-text">Already have an account? <a routerLink="/login">Login here</a></p>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div class="overlay">
+                <h1>Join the Journey</h1>
+                <p>Register now to facilitate your transport and licensing needs with ease.</p>
+            </div>
+        </div>
+    </div>
+</div>

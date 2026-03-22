@@ -1,0 +1,180 @@
+<div class="profile-container">
+    <div class="profile-layout" *ngIf="user">
+        <!-- 1. Left Aside: Identity & Stats -->
+        <aside class="profile-aside">
+            <div class="glass-card identity-card">
+                <div class="avatar-section">
+                    <div class="avatar-ring">
+                        <img *ngIf="user.photo" [src]="user.photo" alt="Profile" class="avatar-img">
+                        <div *ngIf="!user.photo" class="avatar-placeholder">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <label for="photo-upload" class="avatar-edit" title="Change Photo">
+                            <i class="fa-solid fa-camera"></i>
+                        </label>
+                        <input type="file" id="photo-upload" (change)="onFileSelected($event)" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <div class="user-main-info">
+                    <h1>{{ user.name }}</h1>
+                    <span class="user-role-badge">
+                        <i class="fa-solid fa-shield-halved"></i> {{ user.role || 'User' }}
+                    </span>
+                    <p class="status-indicator">
+                        <span class="dot pulse"></span> Active Session
+                    </p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item" *ngFor="let stat of profileStats">
+                        <div class="stat-icon" [style.background-color]="stat.color + '20'" [style.color]="stat.color">
+                            <i class="fa-solid" [ngClass]="stat.icon"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" [style.backgroundColor]="stat.color + '10'"
+                                [style.color]="stat.color">{{ stat.value }}</span>
+                            <span class="stat-label">{{ stat.label }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 2. Main Content: Details & Editing -->
+        <main class="profile-main">
+            <div class="glass-card content-card">
+                <div class="card-header">
+                    <div class="title-group">
+                        <i class="fa-solid fa-circle-user gradient-text"></i>
+                        <h2>Account Profile</h2>
+                    </div>
+                    <div class="header-actions">
+                        <div class="profile-action-cluster">
+                            <button class="btn-action edit-premium" (click)="toggleEdit()" *ngIf="!isEditing">
+                                <div class="action-icon-wrapper">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <span>Edit Profile</span>
+                            </button>
+
+                            <div class="edit-actions-cluster" *ngIf="isEditing">
+                                <button class="btn-action cancel" (click)="cancelEdit()">Cancel</button>
+                                <button class="btn-action save" (click)="saveProfile()">Save Changes</button>
+                            </div>
+
+                            <div class="action-divider" *ngIf="!isEditing"></div>
+
+                            <div class="session-pill" *ngIf="!isEditing" (click)="onLogout()">
+                                <div class="session-info">
+                                    <span class="session-dot pulse"></span>
+                                    <span class="session-label">Active</span>
+                                </div>
+                                <div class="session-divider"></div>
+                                <div class="session-power">
+                                    <i class="fa-solid fa-power-off"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-details">
+                    <div class="details-section">
+                        <h3 class="section-title">Personal Information</h3>
+                        <div class="details-grid">
+                            <div class="detail-field">
+                                <label><i class="fa-solid fa-signature"></i> Full Name</label>
+                                <div class="value-box" *ngIf="!isEditing">{{ user.name }}</div>
+                                <input type="text" [(ngModel)]="tempUser.name" class="premium-input-field"
+                                    *ngIf="isEditing">
+                            </div>
+
+                            <div class="detail-field">
+                                <label><i class="fa-solid fa-envelope"></i> Email Address</label>
+                                <div class="value-box readonly">{{ user.email }}</div>
+                            </div>
+
+                            <div class="detail-field">
+                                <label><i class="fa-solid fa-phone"></i> Mobile Connection</label>
+                                <div class="value-box" *ngIf="!isEditing">{{ user.mobile || 'Not Linked' }}</div>
+                                <input type="text" [(ngModel)]="tempUser.mobile" class="premium-input-field"
+                                    *ngIf="isEditing">
+                            </div>
+
+                            <div class="detail-field">
+                                <label><i class="fa-solid fa-clock-rotate-left"></i> Current Login</label>
+                                <div class="value-box readonly">{{ user.loginTime | date:'medium' }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="details-section security-section">
+                        <h3 class="section-title">Security & Preferences</h3>
+                        <div class="security-cards">
+                            <div class="security-card" (click)="openPasswordModal()">
+                                <div class="s-icon"><i class="fa-solid fa-lock"></i></div>
+                                <div class="s-info">
+                                    <h4>Password Settings</h4>
+                                    <p>Update your account password</p>
+                                </div>
+                                <i class="fa-solid fa-chevron-right arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- OTP Overlay (Mobile Update) -->
+    <div class="otp-glass-overlay" *ngIf="isVerifyingOtp">
+        <div class="otp-glass-card">
+            <div class="otp-header">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <h3>Identity Verification</h3>
+            </div>
+            <p>We've sent a 6-digit code to your new number: <strong>{{ newMobile }}</strong></p>
+
+            <div class="otp-input-group">
+                <input type="text" [(ngModel)]="otp" maxlength="6" placeholder="0 0 0 0 0 0">
+            </div>
+
+            <div class="otp-footer-actions">
+                <button class="btn-verify" (click)="verifyOtp()">Confirm Update</button>
+                <button class="btn-cancel-otp" (click)="cancelOtp()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div class="otp-glass-overlay" *ngIf="isChangingPassword">
+        <div class="otp-glass-card">
+            <div class="otp-header">
+                <i class="fa-solid fa-lock-open gradient-text"></i>
+                <h3>Change Password</h3>
+            </div>
+
+            <div class="modal-form">
+                <div class="input-stack">
+                    <label>Current Password</label>
+                    <input type="password" [(ngModel)]="passwordData.currentPassword" placeholder="••••••••">
+                </div>
+                <div class="input-stack">
+                    <label>New Password</label>
+                    <input type="password" [(ngModel)]="passwordData.newPassword" placeholder="Minimum 6 characters">
+                </div>
+                <div class="input-stack">
+                    <label>Confirm New Password</label>
+                    <input type="password" [(ngModel)]="passwordData.confirmPassword"
+                        placeholder="Re-type new password">
+                </div>
+            </div>
+
+            <div class="otp-footer-actions">
+                <button class="btn-verify" (click)="submitPasswordChange()">Update Password</button>
+                <button class="btn-cancel-otp" (click)="closePasswordModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

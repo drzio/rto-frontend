@@ -1,0 +1,25 @@
+<section class="services-section">
+    <div class="container">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">Detailed information about RTO services available online</p>
+
+        <div class="services-grid">
+            <div *ngFor="let service of services" class="service-card" [routerLink]="['/services', service.id]">
+                <div class="service-img" [style.backgroundImage]="'url(' + service.img + ')'">
+                    <div class="overlay"></div>
+                </div>
+                <div class="service-content">
+                    <i class="fa-solid {{service.icon}} service-icon"></i>
+                    <h3>{{service.title}}</h3>
+                    <a [routerLink]="['/services', service.id]" class="service-link">Apply Now <i
+                            class="fa-solid fa-arrow-right-long"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="view-all">
+            <a routerLink="/services" class="browse-link">Browse All Services <i
+                    class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,13 @@
+<section class="stats-section">
+    <div class="stats-container container">
+        <div class="stat-card" *ngFor="let stat of stats">
+            <div class="icon-circle" [style.background]="stat.color + '20'">
+                <i class="fa-solid" [class]="stat.icon" [style.color]="stat.color"></i>
+            </div>
+            <div class="stat-info">
+                <h3>{{stat.value}}</h3>
+                <p>{{stat.label}}</p>
+            </div>
+        </div>
+    </div>
+</section>

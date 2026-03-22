@@ -1,0 +1,21 @@
+<section class="process-section">
+    <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Get your driving license in 3 simple steps</p>
+
+        <div class="process-grid">
+            <div *ngFor="let step of steps; let i = index" class="process-step">
+                <div class="icon-box">
+                    <i class="fa-solid {{step.icon}}"></i>
+                    <div class="step-number">{{i + 1}}</div>
+                </div>
+                <h3>{{step.title}}</h3>
+                <p>{{step.desc}}</p>
+                <!-- Show connector if not last item -->
+                <div *ngIf="i < steps.length - 1" class="step-connector">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

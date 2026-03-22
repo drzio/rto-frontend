@@ -1,0 +1,96 @@
+<div class="contact-page">
+    <div class="background-decorations">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="mesh-grid"></div>
+    </div>
+
+    <div class="hero-section">
+        <div class="container">
+            <span class="badge">Official Support</span>
+            <h1>Get in Touch</h1>
+            <p>Our team is here to help you with any RTO related queries.</p>
+        </div>
+    </div>
+
+    <section class="contact-main">
+        <div class="container">
+            <div class="contact-card balanced">
+                <div class="contact-grid">
+                    <!-- Unique Minimal Sidebar -->
+                    <aside class="contact-sidebar-unique">
+                        <div class="sidebar-pattern"></div>
+                        <div class="sidebar-content">
+                            <div class="live-status">
+                                <span class="pulse"></span>
+                                <span class="status-text">Support Online</span>
+                            </div>
+
+                            <h2>We're Here for You</h2>
+                            <p>For urgent matters or specific applications, feel free to reach out directly.</p>
+
+                            <div class="unique-info-cards">
+                                <div class="info-card">
+                                    <div class="card-icon">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </div>
+                                    <div class="card-details">
+                                        <label>Email Us</label>
+                                        <span>support@rtonexus.gov.in</span>
+                                    </div>
+                                </div>
+
+                                <div class="info-card">
+                                    <div class="card-icon">
+                                        <i class="fa-solid fa-headset"></i>
+                                    </div>
+                                    <div class="card-details">
+                                        <label>Toll Free</label>
+                                        <span>1800 123 4567</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Main Form -->
+                    <main class="contact-body">
+                        <div class="body-header">
+                            <h3>Send Message</h3>
+                        </div>
+
+                        <form (ngSubmit)="handleSubmit()" class="modern-form">
+                            <div class="input-field">
+                                <input type="text" id="name" required placeholder=" " />
+                                <label for="name">Name</label>
+                                <span class="indicator"></span>
+                            </div>
+
+                            <div class="input-field">
+                                <input type="email" id="email" required placeholder=" " />
+                                <label for="email">Email</label>
+                                <span class="indicator"></span>
+                            </div>
+
+                            <div class="input-field">
+                                <textarea id="message" required rows="4" placeholder=" "></textarea>
+                                <label for="message">Message</label>
+                                <span class="indicator"></span>
+                            </div>
+
+                            <div class="form-footer">
+                                <button type="submit" class="prime-btn">
+                                    <span class="text">Send</span>
+                                    <span class="icon">
+                                        <i class="fa-solid fa-paper-plane"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

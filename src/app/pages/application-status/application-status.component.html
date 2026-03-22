@@ -1,0 +1,108 @@
+<div class="page-wrapper">
+    <div class="bg-decor">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="mesh"></div>
+    </div>
+
+    <div class="hero-banner">
+        <div class="container">
+            <span class="badge-pill">Track Status</span>
+            <h1>Application <span>Status</span></h1>
+            <p>Track the realtime progress of your License Application.</p>
+        </div>
+    </div>
+
+    <section class="glass-section">
+        <div class="container">
+            <div class="glass-card-main wide">
+                <button class="theme-btn sm outline" style="margin-bottom: 25px;" (click)="goBack()">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+                </button>
+
+                <div class="loading-state" *ngIf="isLoading">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Fetching Details...
+                </div>
+
+                <div class="status-content" *ngIf="!isLoading">
+                    <!-- Info Card -->
+                    <div class="info-card" *ngIf="userApp">
+                        <div class="action-header"
+                            style="grid-column: 1 / -1; display: flex; justify-content: flex-end; margin-bottom: 10px;"
+                            *ngIf="actionLabel">
+                            <button class="theme-btn sm" (click)="resumeAction()">
+                                {{actionLabel}} <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="label">Application ID</span>
+                            <span class="value">#{{formattedAppId}}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Applicant Name</span>
+                            <span class="value">{{userApp.userId?.name || userApp.personalDetails?.fullName ||
+                                'N/A'}}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">License Type</span>
+                            <span class="value highlight">{{userApp.serviceName || userApp.licenseType}}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Current Status</span>
+                            <span class="value status-badge"
+                                [class.success]="userApp.status === 'License Issued' || userApp.status === 'Approved'"
+                                [class.warning]="userApp.status === 'Pending Verification'"
+                                [class.danger]="userApp.status === 'Rejected'">
+                                {{userApp.status}}
+                            </span>
+                        </div>
+                        <div class="info-item" *ngIf="userApp.status === 'Rejected' && userApp.rejectionReason">
+                            <span class="label" style="color: #dc3545;">Rejection Reason</span>
+                            <span class="value">{{userApp.rejectionReason}}</span>
+                        </div>
+
+                        <!-- Retake Action Below Info -->
+                        <div class="action-footer" style="grid-column: 1 / -1; margin-top: 15px;"
+                            *ngIf="userApp.status === 'Rejected' && userApp.rejectionReason === 'Failed Online Exam'">
+                            <button class="theme-btn sm"
+                                style="background: #dc3545; color: white; border-color: #dc3545; width: 100%;"
+                                (click)="retakeExam()">
+                                <i class="fas fa-redo"></i> Retake Exam (Pay Fee Again)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Timeline -->
+                    <div class="timeline-container">
+                        <div class="timeline-step" *ngFor="let step of timeline; let last = last"
+                            [class.completed]="step.completed" [class.active]="step.active" [class.error]="step.error">
+
+                            <div class="step-icon">
+                                <i class="fa-solid" [ngClass]="step.icon"></i>
+                            </div>
+
+                            <div class="step-content">
+                                <h3>{{step.label}}</h3>
+                                <p class="status-text">{{step.status}}</p>
+                                <p class="time-text" *ngIf="step.completed || step.active">
+                                    {{step.active ? 'In Progress' : 'Completed'}}
+                                </p>
+                            </div>
+
+                            <!-- Computed Line -->
+                            <div class="step-line" *ngIf="!last"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="empty-state" *ngIf="!isLoading && !userApp">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <p>No active applications found.</p>
+                    <button class="theme-btn" (click)="goBack()">Go Application</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

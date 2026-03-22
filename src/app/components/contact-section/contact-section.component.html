@@ -1,0 +1,51 @@
+<section class="contact-section">
+    <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-subtitle">Have questions? We are here to help.</p>
+
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <p>For any queries related to license or vehicle registration.</p>
+
+                <div class="info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <h4>Address</h4>
+                        <p>RTO Office, Majura Gate, Surat, Gujarat</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+91 98765 43210</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>support@rtogujarat.gov.in</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <form (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required [(ngModel)]="formData.name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required [(ngModel)]="formData.email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" required [(ngModel)]="formData.message"
+                            name="message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

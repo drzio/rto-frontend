@@ -1,0 +1,27 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Solid Circle (Brand Teal) -->
+  <circle cx="100" cy="100" r="95" fill="#2CA58D" stroke="#FFFFFF" stroke-width="2"/>
+  
+  <!-- Subtle Inner Ring -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="8 8" opacity="0.4"/>
+  
+  <!-- Professional Steering Wheel Shape (Dark Blue) -->
+  <circle cx="100" cy="100" r="60" fill="none" stroke="#243B55" stroke-width="12"/>
+  <circle cx="100" cy="100" r="54" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.6"/>
+  
+  <!-- Steering Wheel Spokes -->
+  <path d="M100 100 L100 160 M100 100 L45 80 M100 100 L155 80" stroke="#243B55" stroke-width="10" stroke-linecap="round"/>
+  
+  <!-- Center Badge -->
+  <circle cx="100" cy="100" r="32" fill="#FFFFFF" stroke="#243B55" stroke-width="3"/>
+  
+  <!-- "RTO" Core Text -->
+  <text x="100" y="102" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="18" font-weight="900" fill="#243B55" text-anchor="middle" dominant-baseline="middle">RTO</text>
+  
+  <!-- "NEXUS" Subtext on a curved path or banner -->
+  <rect x="65" y="135" width="70" height="18" rx="9" fill="#243B55"/>
+  <text x="100" y="148" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="9" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">NEXUS</text>
+  
+  <!-- Decorative Speed lines -->
+  <path d="M15 100 L30 100 M170 100 L185 100" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+</svg>

@@ -1,0 +1,19 @@
+<section class="faq-section">
+    <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Find answers to common queries about RTO services.</p>
+
+        <div class="faq-grid">
+            <div class="faq-item" *ngFor="let faq of faqs; let i = index" [class.active]="faq.isOpen"
+                (click)="toggleFaq(i)">
+                <div class="faq-question">
+                    <h3>{{faq.question}}</h3>
+                    <i class="fa-solid" [class.fa-plus]="!faq.isOpen" [class.fa-minus]="faq.isOpen"></i>
+                </div>
+                <div class="faq-answer" [style.maxHeight]="faq.isOpen ? '200px' : '0'">
+                    <p>{{faq.answer}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

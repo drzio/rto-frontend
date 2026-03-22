@@ -1,0 +1,46 @@
+<!-- Top Bar -->
+<div class="top-bar">
+    <div class="container top-bar-container">
+        <div class="top-content">
+            <span>Welcome to RTO - Nexus - Management System and License Appointment</span>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar" [ngClass]="{'scrolled': isScrolled || !isHomePage}">
+    <div class="container navbar-container">
+        <a routerLink="/" class="navbar-logo">
+            <img src="assets/logo.svg" alt="RTO - Nexus Logo" class="logo-img">
+            RTO - <span class="logo-highlight">Nexus</span>
+        </a>
+        <div class="navbar-menu">
+            <ul class="navbar-links">
+                <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+                <li><a routerLink="/about" routerLinkActive="active">About Us</a></li>
+                <li><a routerLink="/services" routerLinkActive="active">Services</a></li>
+                <li *ngIf="user"><a routerLink="/application-status" routerLinkActive="active">Track Status</a></li>
+                <li *ngIf="user"><a routerLink="/support" routerLinkActive="active">Support</a></li>
+                <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
+            </ul>
+        </div>
+        <div class="navbar-auth">
+            <div *ngIf="user; else guestTemplate" style="display: flex; align-items: center; gap: 15px;">
+                <a routerLink="/profile" [style.fontWeight]="'600'"
+                    [style.color]="(isScrolled || (!isHomePage && !isAuthPage)) ? 'black' : 'white'"
+                    style="text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                    <img *ngIf="user.photo" [src]="user.photo" class="nav-avatar-img">
+                    <i *ngIf="!user.photo" class="fa-solid fa-user-circle"></i>
+                    {{user.name}}
+                </a>
+                <button (click)="handleLogout()" class="btn btn-outline-sm"
+                    style="padding: 5px 15px; font-size: 0.85rem;">
+                    Logout
+                </button>
+            </div>
+            <ng-template #guestTemplate>
+                <a routerLink="/login" class="btn-text">Login</a>
+                <a routerLink="/register" class="btn btn-outline-sm">Register</a>
+            </ng-template>
+        </div>
+    </div>
+</nav>

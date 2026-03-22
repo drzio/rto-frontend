@@ -1,0 +1,215 @@
+<div class="support-page">
+    <!-- Background Elements -->
+    <div class="background-decorations">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="mesh-grid"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container relative">
+            <button class="btn-back-minimal" (click)="goBack()">
+                <i class="fa-solid fa-chevron-left"></i> <span>Dashboard</span>
+            </button>
+            <span class="badge">Official Support</span>
+            <h1>Support <span>Nexus</span></h1>
+            <p>Track your queries or start a new conversation with our experts.</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="support-main">
+        <div class="container">
+            <div class="support-card glass">
+                <div class="support-layout">
+                    <!-- Ticket Sidebar -->
+                    <aside class="ticket-sidebar">
+                        <div class="sidebar-top">
+                            <div class="title-row">
+                                <h3>Active Support</h3>
+                                <span class="count">{{ tickets.length }}</span>
+                            </div>
+                            <button class="btn-prime-small" (click)="showNewTicketModal = true">
+                                <i class="fa-solid fa-plus"></i> New Ticket
+                            </button>
+                        </div>
+
+                        <div class="ticket-scroll-area">
+                            <div *ngFor="let ticket of tickets" class="ticket-item-premium"
+                                [class.active]="selectedTicket?._id === ticket._id"
+                                [class.has-unread]="getUnreadCount(ticket) > 0" (click)="selectTicket(ticket)">
+                                <div class="ticket-indicator"></div>
+                                <div class="ticket-info">
+                                    <div class="ticket-header">
+                                        <span class="ticket-subject">{{ ticket.subject }}</span>
+                                        <span class="unread-badge" *ngIf="getUnreadCount(ticket) > 0">
+                                            {{ getUnreadCount(ticket) }}
+                                        </span>
+                                    </div>
+                                    <div class="ticket-meta">
+                                        <span class="last-msg">{{ getLastMessage(ticket) }}</span>
+                                        <span class="ticket-date">{{ ticket.updatedAt | date:'shortTime' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="tickets.length === 0" class="empty-state-sidebar">
+                                <div class="empty-icon"><i class="fa-solid fa-inbox"></i></div>
+                                <p>No tickets found</p>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Chat Area -->
+                    <main class="chat-area">
+                        <!-- No Selection State -->
+                        <div *ngIf="!selectedTicket" class="no-selection-premium">
+                            <div class="visual-element">
+                                <div class="pulse-ring"></div>
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <h3>How can we help today?</h3>
+                            <p>Select an existing ticket from the sidebar or create a new one to get started.</p>
+                            <button class="btn-outline" (click)="showNewTicketModal = true">
+                                Create First Ticket
+                            </button>
+                        </div>
+
+                        <!-- Active Chat Interface -->
+                        <div *ngIf="selectedTicket" class="chat-interface-premium">
+                            <div class="chat-header-premium">
+                                <div class="header-info">
+                                    <h4>{{ selectedTicket.subject }}</h4>
+                                    <div class="header-meta">
+                                        <span class="id">Ticket ID: #{{ selectedTicket._id.slice(-6).toUpperCase()
+                                            }}</span>
+                                        <span class="divider">•</span>
+                                        <span class="status-text">{{ selectedTicket.status }}</span>
+                                    </div>
+                                </div>
+                                <div class="header-actions">
+                                    <button class="icon-btn" title="Refresh"><i class="fa-solid fa-rotate"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="messages-container" #scrollMe>
+                                <ng-container *ngFor="let msg of selectedTicket.messages; trackBy: trackByMessage">
+                                    <div class="message-wrapper"
+                                        [ngClass]="msg.sender === 'User' ? 'user-msg' : 'admin-msg'">
+                                        <div class="message-bubble-premium" [ngClass]="{'deleted': msg.isDeleted}"
+                                            [id]="'msg-' + msg._id">
+
+                                            <!-- Reply Preview in Bubble -->
+                                            <div class="reply-content"
+                                                *ngIf="!msg.isDeleted && msg.replyTo && getMsgById(msg.replyTo) as replied"
+                                                (click)="scrollToMessage(msg.replyTo)">
+                                                <span class="replied-sender">{{replied.sender}}</span>
+                                                <p>{{replied.isDeleted ? 'This message was deleted' : replied.message}}
+                                                </p>
+                                            </div>
+
+                                            <div class="msg-content" *ngIf="!msg.isDeleted">
+                                                <p>{{msg.message}}</p>
+                                            </div>
+                                            <div class="msg-content deleted-text" *ngIf="msg.isDeleted">
+                                                <i class="fa-solid fa-ban"></i>
+                                                <p>This message was deleted</p>
+                                            </div>
+                                            <span class="time">{{msg.timestamp | date:'shortTime'}}</span>
+
+                                            <!-- Action Menu -->
+                                            <div class="message-actions" *ngIf="!msg.isDeleted">
+                                                <button (click)="setReply(msg)" title="Reply"><i
+                                                        class="fa-solid fa-reply"></i></button>
+                                                <button *ngIf="msg.sender === 'User'" (click)="confirmDelete(msg._id)"
+                                                    title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                            <div class="message-input-bar">
+                                <!-- Reply Preview -->
+                                <div class="reply-preview-bar" *ngIf="replyingTo">
+                                    <div class="reply-info">
+                                        <span class="reply-label">Replying to {{replyingTo.sender}}</span>
+                                        <p class="reply-msg">{{replyingTo.message}}</p>
+                                    </div>
+                                    <button class="btn-cancel-reply" (click)="replyingTo = null"><i
+                                            class="fas fa-times"></i></button>
+                                </div>
+
+                                <div class="input-wrapper">
+                                    <input type="text" [(ngModel)]="replyMessage" placeholder="Write your message..."
+                                        (keyup.enter)="sendReply()">
+                                    <button class="btn-send-prime" (click)="sendReply()"
+                                        [disabled]="!replyMessage.trim()">
+                                        <i class="fa-solid fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Premium New Ticket Modal -->
+<div class="modal-backdrop-blur" *ngIf="showNewTicketModal" (click)="showNewTicketModal = false">
+    <div class="modal-card-premium" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3>New Support Request</h3>
+            <button class="btn-close" (click)="showNewTicketModal = false">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="modal-desc">Briefly describe the issue you're facing and we'll get back shortly.</p>
+
+            <div class="premium-form-group">
+                <input type="text" [(ngModel)]="newSubject" id="subject" required placeholder=" " />
+                <label for="subject">Subject</label>
+                <div class="input-line"></div>
+            </div>
+
+            <div class="premium-form-group">
+                <textarea [(ngModel)]="newMessage" id="message" required rows="4" placeholder=" "></textarea>
+                <label for="message">Detailed Message</label>
+                <div class="input-line"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-ghost" (click)="showNewTicketModal = false">Cancel</button>
+            <button class="btn-prime-modal" (click)="createTicket()" [disabled]="!newSubject || !newMessage">
+                Submit Ticket
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Message Modal -->
+<div class="modal-backdrop-blur" *ngIf="showDeleteModal" (click)="cancelDelete()">
+    <div class="delete-modal-card" (click)="$event.stopPropagation()">
+        <div class="delete-modal-icon">
+            <i class="fa-solid fa-trash-can"></i>
+        </div>
+        <h4>Delete Message?</h4>
+        <p class="delete-modal-desc">Choose how to delete this message</p>
+        <div class="delete-options">
+            <button class="delete-opt everyone" (click)="doDelete('everyone')">
+                <i class="fa-solid fa-users"></i>
+                <span>Delete for Everyone</span>
+            </button>
+            <button class="delete-opt forme" (click)="doDelete('me')">
+                <i class="fa-solid fa-user"></i>
+                <span>Delete for Me</span>
+            </button>
+            <button class="delete-opt cancel" (click)="cancelDelete()">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>

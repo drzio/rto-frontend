@@ -1,0 +1,26 @@
+<section class="testimonials-section">
+    <div class="container">
+        <h2 class="section-title">What Others Say</h2>
+        <p class="section-subtitle">Feedback from citizens who used our online services</p>
+
+        <div class="testimonials-grid">
+            <div *ngFor="let review of reviews" class="testimonial-card">
+                <div class="user-img">
+                    <img [src]="review.img" [alt]="review.name" />
+                </div>
+                <div class="review-content">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p>"{{review.text}}"</p>
+                    <h4>{{review.name}}</h4>
+                    <span>{{review.role}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

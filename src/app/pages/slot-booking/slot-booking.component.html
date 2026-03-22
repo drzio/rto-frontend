@@ -1,0 +1,123 @@
+<div class="page-wrapper">
+    <div class="bg-decor">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="mesh"></div>
+    </div>
+
+    <div class="hero-banner">
+        <div class="container">
+            <span class="badge-pill">Exam Booking</span>
+            <h1>Book Your <span>Exam Slot</span></h1>
+            <p>Select a convenient date for your Driving or Learning License Test.</p>
+        </div>
+    </div>
+
+    <section class="glass-section">
+        <div class="container">
+            <div class="glass-card-main wide">
+                <div *ngIf="loading" class="loading-state">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Checking Eligibility...
+                </div>
+
+                <div *ngIf="!loading && !eligibleApp" class="empty-state">
+                    <i class="fa-solid fa-calendar-xmark"></i>
+                    <p>You have no applications eligible for slot booking.</p>
+                    <p class="sub-text">Please wait for admin verification or apply for a new license.</p>
+                    <a routerLink="/dashboard" class="theme-btn">Back to Dashboard</a>
+                </div>
+
+                <div *ngIf="!loading && eligibleApp" class="booking-card">
+                    <div class="info-section">
+                        <div class="info-item">
+                            <span class="label">Application ID</span>
+                            <span class="value">#{{formattedAppId}}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">License Type</span>
+                            <span class="value highlight">{{ eligibleApp.serviceName || eligibleApp.licenseType
+                                }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Applicant Name</span>
+                            <span class="value">{{ eligibleApp.userId?.name || eligibleApp.personalDetails?.fullName
+                                }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Current Status</span>
+                            <span class="value status-badge">{{ eligibleApp.status }}</span>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="date-selection-section">
+                        <h3>Select a Date</h3>
+                        <p class="hint">Slots are available for the next 30 days.</p>
+
+                        <!-- Legend -->
+                        <div class="legend">
+                            <span class="badge available">Available</span>
+                            <span class="badge full">Full</span>
+                            <span class="badge holiday">Holiday</span>
+                        </div>
+
+                        <!-- Calendar Grid -->
+                        <div class="calendar-grid">
+                            <div *ngFor="let day of calendarDays" class="calendar-day" [ngClass]="{
+                                    'available': day.status === 'available',
+                                    'full': day.status === 'full',
+                                    'holiday': day.status === 'holiday',
+                                    'selected': selectedDate === day.date
+                                 }" (click)="selectDate(day)">
+                                <span class="weekday">{{ day.weekday }}</span>
+                                <span class="day-number">{{ day.day }}</span>
+
+                                <!-- Status Dot -->
+                                <div class="status-dot" [ngClass]="day.status"></div>
+
+                                <span class="slots-left" *ngIf="day.status === 'available'">{{ day.slotsLeft }}
+                                    Left</span>
+                                <span class="status-text" *ngIf="day.status !== 'available'">{{ day.status | titlecase
+                                    }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Time Slot Selection -->
+                        <div class="time-slots-section" *ngIf="selectedDate">
+                            <h3>Select Time Slot</h3>
+                            <p class="selected-date-display">Date: <strong>{{ selectedDate | date:'fullDate' }}</strong>
+                            </p>
+
+                            <div class="slots-container">
+                                <div class="time-card" [class.selected]="selectedTimeSlot === '10:00 AM - 01:00 PM'"
+                                    (click)="selectTimeSlot('10:00 AM - 01:00 PM')">
+                                    <span class="time-label">Morning</span>
+                                    <span class="time-value">10:00 AM - 01:00 PM</span>
+                                </div>
+
+                                <div class="time-card" [class.selected]="selectedTimeSlot === '02:00 PM - 05:00 PM'"
+                                    (click)="selectTimeSlot('02:00 PM - 05:00 PM')">
+                                    <span class="time-label">Evening</span>
+                                    <span class="time-value">02:00 PM - 05:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="selected-summary" *ngIf="selectedDate">
+                            <p>Selected Date: <strong>{{ selectedDate | date:'fullDate' }}</strong></p>
+                        </div>
+
+                        <button class="theme-btn" (click)="confirmBooking()"
+                            [disabled]="booking || !selectedDate || !selectedTimeSlot" style="margin-top: 20px;">
+                            <i class="fa-solid fa-check-circle" *ngIf="!booking"></i>
+                            <i class="fa-solid fa-spinner fa-spin" *ngIf="booking"></i>
+                            {{ booking ? 'Booking Slot...' : 'Confirm Booking' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

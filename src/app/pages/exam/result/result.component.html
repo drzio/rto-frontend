@@ -1,0 +1,32 @@
+<div class="exam-page">
+
+    <div class="result-card">
+        <div class="score-circle" [style.borderColor]="isPassed ? '#10b981' : '#ef4444'">
+            <span class="score-number">{{score}}/{{total}}</span>
+            <span class="score-label">Your Score</span>
+        </div>
+
+        <h1 class="pass-status" [ngClass]="{'passed': isPassed, 'failed': !isPassed}">
+            {{isPassed ? 'CONGRATULATIONS!' : 'TEST FAILED'}}
+        </h1>
+
+        <p class="result-message">
+            {{isPassed
+            ? 'You have successfully passed the Learner\'s License Mock Test. You are ready for the real exam!'
+            : 'Unfortunately, you did not score the minimum passing marks. Please review traffic rules and try again.'}}
+        </p>
+
+        <div class="action-buttons">
+            <a routerLink="/exam/start" class="btn-premium btn-retake">
+                <i class="fa-solid fa-rotate-right"></i> Retake Test
+            </a>
+            <button *ngIf="isPassed" (click)="downloadLicense()" class="btn-premium btn-download">
+                <i class="fa-solid fa-file-arrow-down"></i> Download License
+            </button>
+            <a routerLink="/" class="btn-premium btn-home">
+                <i class="fa-solid fa-house"></i> Go Home
+            </a>
+        </div>
+    </div>
+
+</div>

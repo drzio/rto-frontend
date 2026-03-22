@@ -1,0 +1,36 @@
+<div class="page-wrapper">
+    <div class="bg-decor">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="mesh"></div>
+    </div>
+
+    <div class="hero-banner">
+        <div class="container">
+            <span class="badge-pill">Our Services</span>
+            <h1>Digital <span>Transport Services</span></h1>
+            <p>Explore our comprehensive range of digital transport services designed to make your RTO experience smooth
+                and hassle-free.</p>
+        </div>
+    </div>
+
+    <section class="glass-section">
+        <div class="container">
+            <div class="services-grid-themed">
+                <div *ngFor="let service of allServices" class="service-card-themed">
+                    <div class="svc-img-wrap">
+                        <img [src]="service.img" [alt]="service.title" />
+                    </div>
+                    <div class="svc-content">
+                        <h3>{{service.title}}</h3>
+                        <p>{{service.description}}</p>
+                        <a [routerLink]="['/services', service.id]" class="svc-apply-btn">
+                            Apply Now <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

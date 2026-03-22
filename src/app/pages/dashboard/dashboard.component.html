@@ -1,0 +1,112 @@
+<div class="page-wrapper">
+    <div class="bg-decor">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="mesh"></div>
+    </div>
+
+    <div class="hero-banner">
+        <div class="container">
+            <span class="badge-pill">Dashboard</span>
+            <h1>Welcome, <span>{{ user?.name }}</span></h1>
+            <p>Manage your license applications from here.</p>
+        </div>
+    </div>
+
+    <section class="glass-section">
+        <div class="container">
+            <div class="dash-grid">
+                <!-- Apply Card -->
+                <div class="dash-card">
+                    <div class="dash-card-icon">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <h3>Learning License (LL)</h3>
+                    <p>Apply for a new Learning License.</p>
+                    <button class="theme-btn sm" (click)="navigateToApply()">
+                        Apply for Learning License
+                    </button>
+                </div>
+
+                <!-- Status Card -->
+                <div class="dash-card" [class.active]="userApp">
+                    <div class="dash-card-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h3>License Application</h3>
+                    <p><strong>Status:</strong>
+                        <span class="theme-badge" [ngClass]="{
+                            'warning': userApp?.status?.includes('Pending'),
+                            'info': userApp?.status === 'Exam Scheduled',
+                            'success': userApp?.status === 'License Generated' || (userApp?.status === 'MCQ Passed' && userApp?.licenseType === 'Learning')
+                        }">
+                            {{ (userApp?.status === 'MCQ Passed' && userApp?.licenseType === 'Learning') ? 'License
+                            Generated' :
+                            (userApp?.status || 'Not Applied') }}
+                        </span>
+                    </p>
+                    <p *ngIf="userApp?.testDate"><strong>Test Date:</strong> {{ userApp?.testDate | date:'mediumDate' }}
+                    </p>
+
+                    <div class="dash-actions">
+                        <!-- 1. Pending Verification -->
+                        <button class="theme-btn sm secondary" disabled
+                            *ngIf="userApp?.status === 'Pending Verification'">
+                            <i class="fas fa-clock"></i> Application Under Review
+                        </button>
+
+                        <!-- 1.b Payment Pending -->
+                        <button class="theme-btn sm"
+                            *ngIf="userApp?.status === 'Payment Pending' || userApp?.status === 'Documents Verified'"
+                            (click)="makePayment()">
+                            <i class="fas fa-credit-card"></i> Pay Application Fee (₹{{ userApp?.licenseType ===
+                            'Learning'
+                            ? '750' : (userApp?.licenseType === 'Renewal' ? '650' : (userApp?.licenseType === 'Duplicate
+                            License' || userApp?.licenseType === 'Vehicle Tax' ? '200' : '1000')) }})
+                        </button>
+
+                        <!-- 2. Eligible for Slot Booking -->
+                        <button class="theme-btn sm" *ngIf="userApp?.status === 'Eligible for Slot Booking'"
+                            (click)="navigateToSlotBooking()">
+                            <i class="fas fa-calendar-check"></i> Book Exam Slot
+                        </button>
+
+                        <!-- 3. Exam Scheduled (MCQ) -->
+                        <button class="theme-btn sm"
+                            *ngIf="['Exam Scheduled', 'Eligible for Exam'].includes(userApp?.status) && userApp?.licenseType === 'Learning'"
+                            (click)="navigateToExam()">
+                            <i class="fas fa-laptop-code"></i> Start Online Exam
+                        </button>
+
+                        <!-- 4. Driving Test -->
+                        <button class="theme-btn sm"
+                            *ngIf="(userApp?.status === 'Exam Scheduled' && userApp?.licenseType === 'Permanent')"
+                            (click)="navigateToDrivingTest()">
+                            <i class="fas fa-car"></i> Take Driving Test
+                        </button>
+
+                        <!-- 5. License Generated -->
+                        <button class="theme-btn sm"
+                            *ngIf="['License Generated', 'Approved'].includes(userApp?.status) || (userApp?.status === 'MCQ Passed' && userApp?.licenseType === 'Learning')"
+                            (click)="downloadLicense()">
+                            <i class="fas fa-download"></i> Download License
+                        </button>
+
+                        <!-- 6. Retake Exam -->
+                        <button class="theme-btn sm" style="background: #dc3545; color: white; border-color: #dc3545;"
+                            *ngIf="userApp?.status === 'Rejected' && userApp?.rejectionReason === 'Failed Online Exam'"
+                            (click)="retakeExam()">
+                            <i class="fas fa-redo"></i> Retake Exam (Pay Fee Again)
+                        </button>
+
+                        <!-- Track Status -->
+                        <button class="theme-btn sm outline" *ngIf="userApp" (click)="navigateToStatus()">
+                            Track Application Status
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
