@@ -1,6 +1,6 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/user-app-angular",
+  "outputDirectory": "dist/user-app-angular/browser",
   "env": {},
   "routes": [
     {
@@ -9,7 +9,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "src/index.html"
+      "dest": "/index.html"
     }
   ]
 }
