@@ -1,13 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   private http = inject(HttpClient);
-  private apiUrl = '/api/applications';
+  private configService = inject(ConfigService);
+  private apiUrl = `${this.configService.apiUrl}/applications`;
 
   getPublicStats(): Observable<any> {
     return this.http.get(`${this.apiUrl}/public/stats`);
@@ -22,7 +24,7 @@ export class ApiService {
   }
 
   submitExam(data: any): Observable<any> {
-    return this.http.post('/api/user/exam/submit', data);
+    return this.http.post(`${this.configService.apiUrl}/user/exam/submit`, data);
   }
 
 
@@ -53,16 +55,16 @@ export class ApiService {
   }
 
   getPublicContent(key: string): Observable<any> {
-    return this.http.get(`/api/user/public/config/${key}`);
+    return this.http.get(`${this.configService.apiUrl}/user/public/config/${key}`);
   }
 
   getContent(key: string): Observable<any> {
-    return this.http.get(`/api/user/config/${key}`);
+    return this.http.get(`${this.configService.apiUrl}/user/config/${key}`);
   }
 
 
   getHolidays(): Observable<any> {
-    return this.http.get(`/api/user/config/holidays/all`);
+    return this.http.get(`${this.configService.apiUrl}/user/config/holidays/all`);
   }
 
   submitDrivingTestResult(data: any): Observable<any> {
@@ -78,7 +80,7 @@ export class ApiService {
   }
 
   getExamQuestions(): Observable<any> {
-    return this.http.get('/api/user/exam/questions');
+    return this.http.get(`${this.configService.apiUrl}/user/exam/questions`);
   }
 
   // Mobile Update
@@ -96,22 +98,22 @@ export class ApiService {
 
   // Support
   createTicket(subject: string, message: string): Observable<any> {
-    return this.http.post(`/api/support/create`, { subject, message });
+    return this.http.post(`${this.configService.apiUrl}/support/create`, { subject, message });
   }
 
   getMyTickets(): Observable<any> {
-    return this.http.get(`/api/support/my-tickets`);
+    return this.http.get(`${this.configService.apiUrl}/support/my-tickets`);
   }
 
   replyToTicket(id: string, message: string, replyTo?: string): Observable<any> {
-    return this.http.post(`/api/support/${id}/message`, { message, replyTo });
+    return this.http.post(`${this.configService.apiUrl}/support/${id}/message`, { message, replyTo });
   }
 
   deleteMessage(ticketId: string, messageId: string, mode: string = 'everyone'): Observable<any> {
-    return this.http.delete(`/api/support/${ticketId}/message/${messageId}?mode=${mode}`);
+    return this.http.delete(`${this.configService.apiUrl}/support/${ticketId}/message/${messageId}?mode=${mode}`);
   }
   payApplicationFee(applicationId: string): Observable<any> {
-    return this.http.post(`/api/payment/pay`, { applicationId });
+    return this.http.post(`${this.configService.apiUrl}/payment/pay`, { applicationId });
   }
 
   downloadApplicationForm(data: any): Observable<Blob> {
