@@ -1,0 +1,27 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/user-app-angular/browser",
+  "env": {},
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/.*\\.js$",
+      "dest": "/$0"
+    },
+    {
+      "src": "/.*\\.css$",
+      "dest": "/$0"
+    },
+    {
+      "src": "/.*\\.woff2?$",
+      "dest": "/$0"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
